@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function UserProfile() {
   const router = useRouter();
@@ -38,8 +38,7 @@ export default function UserProfile() {
 
   return (
     <div className='container mx-auto p-4'>
-      <h1 className='text-4xl font-bold'>{userProfile.username}'s Profile</h1>
-      <p className='mt-4 text-lg'>Email: {userProfile.email}</p>
+      <h1 className='text-4xl font-bold'>{userProfile.email}'s Profile</h1>
       {/* Display other user profile details here */}
     </div>
   );
