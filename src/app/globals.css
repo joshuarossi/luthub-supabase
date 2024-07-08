@@ -31,3 +31,20 @@ body {
     text-wrap: balance;
   }
 }
+
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
+  font-size: 3rem; /* Adjust the size as needed */
+  -webkit-background-clip: text;
+  background-clip: text; /* Added for compatibility */
+  color: transparent;
+}
