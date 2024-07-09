@@ -93,10 +93,13 @@ export async function POST(request) {
       }
     );
   }
-
+  console.log(insertData);
   if (!insertData || insertData.length === 0) {
     return new Response(
-      JSON.stringify({ msg: 'line 89', error: 'Insert operation failed' }),
+      JSON.stringify({
+        msg: JSON.stringify(insertData),
+        error: 'Insert operation failed',
+      }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
