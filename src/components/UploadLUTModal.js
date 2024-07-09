@@ -42,8 +42,8 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
   };
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-      <div className='bg-white p-4 rounded shadow-md'>
+    <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50'>
+      <div className='bg-white p-4 rounded shadow-md z-50'>
         <h2 className='text-xl font-bold mb-4'>Upload LUT</h2>
         <input
           type='file'
