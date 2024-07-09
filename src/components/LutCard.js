@@ -38,6 +38,18 @@ const LutCard = ({ lut }) => {
         <strong className='text-gray-800'>Returns:</strong>{' '}
         <span className='text-gray-700'>{lut.output}</span>
       </div>
+      <div className='mt-2'>
+        <strong className='text-gray-800'>LUT Size:</strong>{' '}
+        <span className='text-gray-70'>{lut.size}</span>
+      </div>
+      <div className='mt-2'>
+        <strong className='text-gray-800'>LUT Type:</strong>{' '}
+        <span className='text-gray-70'>{lut.type}</span>
+      </div>
+      <div className='mt-2'>
+        <strong className='text-gray-800'>Uploaded By:</strong>{' '}
+        <span className='text-gray-700'>{lut.uploaded_by}</span>
+      </div>
       <a
         href={lut.url}
         className='text-blue-600 hover:underline mt-2 block'

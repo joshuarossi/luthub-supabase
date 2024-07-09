@@ -9,3 +9,6 @@
 - [] Allow people to delete their LUT's
 - [] Add other stock test images
 - [] Allow people to upload their own test images
+- [] Add search
+- [] Add filters
+- [] Add sort
