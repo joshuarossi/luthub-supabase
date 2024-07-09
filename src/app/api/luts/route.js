@@ -15,3 +15,66 @@ export async function GET(request) {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+
+export async function POST(request) {
+  const formData = await request.formData();
+  const name = formData.get('name');
+  const description = formData.get('description');
+  const file = formData.get('file');
+  const input = formData.get('input');
+  const output = formData.get('output');
+  const size = formData.get('size');
+  const type = formData.get('type');
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from('luts')
+    .upload(`public/${file.name}`, file);
+
+  if (uploadError) {
+    return new Response(JSON.stringify({ error: uploadError.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const lutURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadData.path}`;
+
+  const { data: insertData, error: insertError } = await supabase
+    .from('luts')
+    .insert([
+      {
+        name,
+        description,
+        url: lutURL,
+        input,
+        output,
+        size,
+        type,
+        uploaded_by: user.email,
+      },
+    ]);
+
+  if (insertError) {
+    return new Response(JSON.stringify({ error: insertError.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  return new Response(JSON.stringify({ lut: insertData[0] }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}

@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import Dropdown from '../components/Dropdown';
+import { useState } from 'react';
+import UploadLUTModal from './UploadLUTModal';
 
-export default function Nav() {
+export default function Nav({ onUpload }) {
   const { user, logout } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const signInWithGoogle = async () => {
     try {
@@ -44,7 +47,15 @@ export default function Nav() {
             {/* Add more nav links here */}
           </div>
         </div>
-        <div>
+        <div className='flex items-center'>
+          {user && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className='mr-4 text-white hover:text-gray-400'
+            >
+              Upload LUT
+            </button>
+          )}
           {user ? (
             <Dropdown label={user.email}>
               <Link
@@ -70,6 +81,12 @@ export default function Nav() {
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <UploadLUTModal
+          onUpload={onUpload}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </nav>
   );
 }
