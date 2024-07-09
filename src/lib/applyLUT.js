@@ -1,8 +1,6 @@
 import { parse, stringify } from 'cube-lut.js';
-import { Lut } from 'three/addons/math/Lut.js';
 
 const applyLUT = async (imageURL, lutURL) => {
-  const lut = new Lut('rainbow', 512);
   console.log(lutURL);
   return new Promise((resolve, reject) => {
     const img = new Image();
