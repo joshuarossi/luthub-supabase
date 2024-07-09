@@ -11,7 +11,7 @@ const applyLUT = async (imageURL, lutURL) => {
       try {
         // here we are getting the LUT file
         const response = await fetch(lutURL, {
-          headers: { Authentication: 'omit' },
+          headers: { authorization: 'omit' },
         });
         const lutText = await response.text();
         // Now we parse it to turn it into a lut object
