@@ -38,10 +38,8 @@ export async function POST(request) {
   }
 
   // Fetch the authenticated user
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser(token);
+  const { data: user, error: userError } =
+    await supabase.auth.api.getUser(token);
 
   if (userError || !user) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -52,7 +50,7 @@ export async function POST(request) {
 
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from('luts')
-    .upload(`luts/${file.name}`, file);
+    .upload(`public/${file.name}`, file);
 
   if (uploadError) {
     return new Response(JSON.stringify({ error: uploadError.message }), {
