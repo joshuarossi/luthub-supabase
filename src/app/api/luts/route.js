@@ -26,18 +26,29 @@ export async function POST(request) {
   const size = formData.get('size');
   const type = formData.get('type');
 
-  // Fetch the authenticated user
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+  // Extract the Authorization header
+  const authHeader = request.headers.get('Authorization');
+  const token = authHeader ? authHeader.split(' ')[1] : null;
 
-  if (userError || !user) {
+  if (!token) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+  // Fetch the authenticated user
+  const { data: userData, error: userError } =
+    await supabase.auth.api.getUser(token);
+
+  if (userError || !userData) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const user = userData.user;
 
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from('luts')
