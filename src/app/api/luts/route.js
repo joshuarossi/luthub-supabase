@@ -30,26 +30,6 @@ export async function POST(request) {
   const authHeader = request.headers.get('Authorization');
   const token = authHeader ? authHeader.split(' ')[1] : null;
 
-  if (!token) {
-    console.log('NO TOKEN');
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  // Fetch the authenticated user
-  const { data: userData, error: userError } =
-    await supabase.auth.api.getUser(token);
-
-  if (userError || !userData) {
-    console.log('NO USER');
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
   const user = userData.user;
 
   const { data: uploadData, error: uploadError } = await supabase.storage
