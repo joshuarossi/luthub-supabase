@@ -82,6 +82,13 @@ export async function POST(request) {
     });
   }
 
+  if (!insertData || insertData.length === 0) {
+    return new Response(JSON.stringify({ error: 'Insert operation failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   return new Response(JSON.stringify({ lut: insertData[0] }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
