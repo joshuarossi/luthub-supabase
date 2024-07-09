@@ -82,7 +82,8 @@ export async function POST(request) {
         type,
         uploaded_by: user.email,
       },
-    ]);
+    ])
+    .select(); // Ensure the inserted data is returned
 
   if (insertError) {
     return new Response(
@@ -97,7 +98,7 @@ export async function POST(request) {
   if (!insertData || insertData.length === 0) {
     return new Response(
       JSON.stringify({
-        msg: JSON.stringify(insertData),
+        msg: 'line 100',
         error: 'Insert operation failed',
       }),
       {
@@ -107,7 +108,7 @@ export async function POST(request) {
     );
   }
   console.log(insertData);
-  return new Response(JSON.stringify({ msg: 'line 98', lut: insertData[0] }), {
+  return new Response(JSON.stringify({ msg: 'line 110', lut: insertData[0] }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
