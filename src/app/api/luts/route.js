@@ -49,7 +49,7 @@ export async function POST(request) {
 
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from('luts')
-    .upload(`public/${file.name}`, file);
+    .upload(`${file.name}`, file);
 
   if (uploadError) {
     return new Response(JSON.stringify({ error: uploadError.message }), {
