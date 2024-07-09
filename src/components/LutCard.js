@@ -3,6 +3,7 @@ import applyLUT from '../lib/applyLUT';
 import ReactCompareImage from 'react-compare-image';
 
 const LutCard = ({ lut }) => {
+  console.log(lut);
   const [appliedImage, setAppliedImage] = useState(null);
   const rawURL =
     'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9yYXcucG5nIiwiaWF0IjoxNzIwNDkwODQ3LCJleHAiOjE3NTIwMjY4NDd9.OQyX24IJDSXaBqfterl0Y_XrB2jwOZGSURq3GiCq9HE&t=2024-07-09T02%3A07%3A27.334Z';
