@@ -35,6 +35,12 @@ export default function Nav() {
             >
               About
             </Link>
+            <Link
+              href='/dashboard'
+              className='text-white hover:text-gray-400 leading-none'
+            >
+              Dashboard
+            </Link>
             {/* Add more nav links here */}
           </div>
         </div>
