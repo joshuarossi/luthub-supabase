@@ -1,14 +1,20 @@
 // src/app/page.js
 'use client';
 import TestSupabase from '../components/TestSupabase';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ReactCompareImage from 'react-compare-image';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Home() {
-  const [showConverted, setShowConverted] = useState(false);
-  const [showGraded, setShowGraded] = useState(false);
-
+  const [showConverted, setShowConverted] = useState(true);
+  const [showGraded, setShowGraded] = useState(true);
+  const rawURL =
+    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9yYXcucG5nIiwiaWF0IjoxNzIwNDkwODQ3LCJleHAiOjE3NTIwMjY4NDd9.OQyX24IJDSXaBqfterl0Y_XrB2jwOZGSURq3GiCq9HE&t=2024-07-09T02%3A07%3A27.334Z';
+  const convertedURL =
+    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/converted.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9jb252ZXJ0ZWQucG5nIiwiaWF0IjoxNzIwNDkwODY3LCJleHAiOjE3NTIwMjY4Njd9.8SNvcOMuvYqzCS2_RHXEoRIAjIDsS5PQ4oh2hlH3pCc&t=2024-07-09T02%3A07%3A47.795Z';
+  const gradedURL =
+    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/graded.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9ncmFkZWQucG5nIiwiaWF0IjoxNzIwNDkwODgzLCJleHAiOjE3NTIwMjY4ODN9.TUXiNzhNmAld-XGlmg36NAo5oDk6My2JAR8Id5jadbg&t=2024-07-09T02%3A08%3A03.134Z';
   return (
     <div className='container mx-auto p-4'>
       <h1 className='text-4xl font-bold'>Welcome to LUTHub</h1>
@@ -48,12 +54,8 @@ export default function Home() {
           }}
         >
           <ReactCompareImage
-            leftImage={
-              showConverted ? '/images/converted.png' : '/images/raw.png'
-            }
-            rightImage={
-              showGraded ? '/images/graded.png' : '/images/converted.png'
-            }
+            leftImage={showConverted ? convertedURL : rawURL}
+            rightImage={showGraded ? gradedURL : convertedURL}
           />
         </div>
       </div>
