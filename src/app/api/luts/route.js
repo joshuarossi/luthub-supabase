@@ -108,7 +108,7 @@ export async function POST(request) {
     );
   }
   console.log(insertData);
-  return new Response(JSON.stringify({ msg: 'line 110', lut: insertData[0] }), {
+  return new Response(JSON.stringify({ lut: insertData[0] }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });

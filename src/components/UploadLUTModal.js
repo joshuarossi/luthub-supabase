@@ -49,7 +49,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
           Authorization: `Bearer ${session.access_token}`, // Include the access token in the headers
         },
       });
-
+      onClose();
       if (response.ok) {
         const newLut = await response.json();
         onUpload(newLut.lut);
