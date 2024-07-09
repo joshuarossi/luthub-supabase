@@ -38,8 +38,7 @@ export async function POST(request) {
   }
 
   // Fetch the authenticated user
-  const { data: user, error: userError } =
-    await supabase.auth.api.getUser(token);
+  const { data: user, error: userError } = await supabase.auth.getUser(token);
 
   if (userError || !user) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
