@@ -41,11 +41,11 @@ const LutCard = ({ lut }) => {
       </div>
       <div className='mt-2'>
         <strong className='text-gray-800'>LUT Size:</strong>{' '}
-        <span className='text-gray-70'>{lut.size}</span>
+        <span className='text-gray-700'>{lut.size}</span>
       </div>
       <div className='mt-2'>
         <strong className='text-gray-800'>LUT Type:</strong>{' '}
-        <span className='text-gray-70'>{lut.type}</span>
+        <span className='text-gray-700'>{lut.type}</span>
       </div>
       <div className='mt-2'>
         <strong className='text-gray-800'>Uploaded By:</strong>{' '}
