@@ -12,7 +12,7 @@ const UploadLUT = () => {
     if (lutFile) {
       const { data, error } = await supabase.storage
         .from('luts')
-        .upload(`${lutFile.name}`, lutFile);
+        .upload(`luts/${lutFile.name}`, lutFile);
 
       if (error) {
         console.error('Error uploading file:', error);
