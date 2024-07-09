@@ -31,7 +31,6 @@ export async function POST(request) {
   const token = authHeader ? authHeader.split(' ')[1] : null;
 
   if (!token) {
-    console.log('NO TOKEN');
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -39,25 +38,23 @@ export async function POST(request) {
   }
 
   // Fetch the authenticated user
-  const { data: userData, error: userError } =
-    await supabase.auth.api.getUser(token);
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser(token);
 
-  if (userError || !userData) {
-    console.log('NO USER');
+  if (userError || !user) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const user = userData.user;
-
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from('luts')
     .upload(`luts/${file.name}`, file);
 
   if (uploadError) {
-    console.log('UPLOAD ERROR');
     return new Response(JSON.stringify({ error: uploadError.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -82,7 +79,6 @@ export async function POST(request) {
     ]);
 
   if (insertError) {
-    console.log('INSERT ERROR');
     return new Response(JSON.stringify({ error: insertError.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
