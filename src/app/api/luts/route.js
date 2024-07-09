@@ -31,20 +31,26 @@ export async function POST(request) {
   const token = authHeader ? authHeader.split(' ')[1] : null;
 
   if (!token) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ msg: 'line 35', error: 'Unauthorized' }),
+      {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   // Fetch the authenticated user
   const { data: user, error: userError } = await supabase.auth.getUser(token);
 
   if (userError || !user) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ msg: 'line 45', error: 'Unauthorized' }),
+      {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   const { data: uploadData, error: uploadError } = await supabase.storage
@@ -52,10 +58,13 @@ export async function POST(request) {
     .upload(`${file.name}`, file);
 
   if (uploadError) {
-    return new Response(JSON.stringify({ error: uploadError.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ msg: 'line 56', error: uploadError.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   const lutURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadData.path}`;
@@ -76,20 +85,26 @@ export async function POST(request) {
     ]);
 
   if (insertError) {
-    return new Response(JSON.stringify({ error: insertError.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ msg: 'line 79', error: insertError.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   if (!insertData || insertData.length === 0) {
-    return new Response(JSON.stringify({ error: 'Insert operation failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ msg: 'line 89', error: 'Insert operation failed' }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
-
-  return new Response(JSON.stringify({ lut: insertData[0] }), {
+  console.log(insertData);
+  return new Response(JSON.stringify({ msg: 'line 98', lut: insertData[0] }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
