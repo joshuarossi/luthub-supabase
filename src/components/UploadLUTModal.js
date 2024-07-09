@@ -30,9 +30,15 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
         data: { session },
         error,
       } = await supabase.auth.getSession();
-
+      console.log(session);
       if (error) {
         console.error('Failed to get session:', error.message);
+        return;
+      }
+
+      // Check if the session is valid and has an access token
+      if (!session || !session.access_token) {
+        console.error('No valid session or access token found');
         return;
       }
 
