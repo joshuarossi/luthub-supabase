@@ -50,6 +50,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
         },
       });
       onClose();
+      window.location.reload();
       if (response.ok) {
         const newLut = await response.json();
         onUpload(newLut.lut);

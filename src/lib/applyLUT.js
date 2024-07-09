@@ -10,11 +10,12 @@ const applyLUT = async (imageURL, lutURL) => {
     img.onload = async () => {
       try {
         // here we are getting the LUT file
-        const response = await fetch(lutURL);
+        const response = await fetch(lutURL, {
+          headers: { Authentication: 'omit' },
+        });
         const lutText = await response.text();
         // Now we parse it to turn it into a lut object
         const lutData = parse(lutText);
-        console.log(lutData);
         // Here we are creating a canvas to draw the image on
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
