@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'LUTHub',
-  description: 'A platform to upload, view, and manage your images.',
+  description: 'A place to discover and share your favorite LUTs.',
 };
 
 export default function RootLayout({ children }) {
