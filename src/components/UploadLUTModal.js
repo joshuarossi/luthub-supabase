@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
 const UploadLUTModal = ({ onClose, onUpload }) => {
   const [lutFile, setLutFile] = useState(null);
@@ -24,9 +25,23 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       formData.append('size', size);
       formData.append('type', type);
 
+      // Get the current user's session to retrieve the access token
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error('Failed to get session:', error.message);
+        return;
+      }
+
       const response = await fetch('/api/luts', {
         method: 'POST',
         body: formData,
+        headers: {
+          Authorization: `Bearer ${session.access_token}`, // Include the access token in the headers
+        },
       });
 
       if (response.ok) {
