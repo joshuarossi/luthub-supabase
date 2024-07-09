@@ -66,8 +66,9 @@ export async function POST(request) {
       }
     );
   }
-
-  const lutURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadData.path}`;
+  // https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/public/luts/AppleLogToDWG33.cube
+  const lutURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/luts/${uploadData.path}`;
+  console.log(lutURL, uploadData.path);
 
   const { data: insertData, error: insertError } = await supabase
     .from('luts')
