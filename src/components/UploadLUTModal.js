@@ -31,8 +31,6 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
 
       if (response.ok) {
         const newLut = await response.json();
-        console.log(newLut);
-        console.log(newLut.lut);
         onUpload(newLut.lut);
         onClose();
       } else {
@@ -45,54 +43,54 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50'>
-      <div className='bg-white p-4 rounded shadow-md z-50'>
+      <div className='bg-white p-4 rounded shadow-md z-50 w-96'>
         <h2 className='text-xl font-bold mb-4'>Upload LUT</h2>
         <input
           type='file'
           accept='.cube'
           onChange={handleLUTUpload}
-          className='mb-4'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <input
           type='text'
           placeholder='LUT Name'
           value={name}
           onChange={e => setName(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <textarea
           placeholder='Description'
           value={description}
           onChange={e => setDescription(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <input
           type='text'
           placeholder='Input Color Space'
           value={input}
           onChange={e => setInput(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <input
           type='text'
           placeholder='Output Color Space'
           value={output}
           onChange={e => setOutput(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <input
           type='text'
           placeholder='Size'
           value={size}
           onChange={e => setSize(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <input
           type='text'
           placeholder='Type'
           value={type}
           onChange={e => setType(e.target.value)}
-          className='mb-4 p-2 border border-gray-300 rounded w-full'
+          className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
         <div className='flex justify-end'>
           <button

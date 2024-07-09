@@ -26,6 +26,7 @@ export async function POST(request) {
   const size = formData.get('size');
   const type = formData.get('type');
 
+  // Fetch the authenticated user
   const {
     data: { user },
     error: userError,
