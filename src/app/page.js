@@ -45,14 +45,7 @@ export default function Home() {
           overflow: 'auto',
         }}
       >
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '500px',
-            overflow: 'auto',
-          }}
-        >
+        <div className='image-container'>
           <ReactCompareImage
             leftImage={showConverted ? convertedURL : rawURL}
             rightImage={showGraded ? gradedURL : convertedURL}

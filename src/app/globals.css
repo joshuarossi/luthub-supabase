@@ -48,3 +48,17 @@ body {
   background-clip: text; /* Added for compatibility */
   color: transparent;
 }
+
+.image-container {
+  max-width: 100%;
+  width: 800px; /* Adjust as needed */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
