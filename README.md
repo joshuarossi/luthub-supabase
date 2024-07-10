@@ -2,6 +2,7 @@
 
 ## TODOS
 
+- [ ] Make sure we are deduplicating image requests
 - [ ] Implement WebGL for better performance
 - [ ] Investigate combining LUT's dynamically
 - [ ] Allow people to edit their uploaded LUT's details
