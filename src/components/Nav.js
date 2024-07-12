@@ -29,7 +29,7 @@ export default function Nav({ onUpload }) {
       <div className='container mx-auto flex justify-between items-end'>
         <div className='flex items-end space-x-8'>
           <Link href='/' className='rainbow-text text-4xl leading-none'>
-            LH
+            <img src='/LH_Logo.png' alt='Logo' width={100} height={100}></img>
           </Link>
           <div className='flex space-x-4 ml-8 items-center'>
             <Link
