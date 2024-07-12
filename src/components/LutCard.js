@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense } from 'react';
-import applyLUT, { initWebGL } from '../lib/applyLUT_WebGL';
+import applyLUT from '../lib/applyLUT_WebGL';
 import ReactCompareImage from 'react-compare-image';
 
 const LutCard = ({ lut, gl }) => {
