@@ -5,6 +5,7 @@
 - [x] Make sure we are deduplicating image requests
 - [x] Implement WebGL for better performance
 - [x] Investigate combining LUT's dynamically
+- [ ] Add waveform as an element to the individual LUT page
 - [ ] Add individual LUT pages for each LUT
 - [ ] Add ability to like individual LUT's
 - [ ] Add ability to favorite LUT's
