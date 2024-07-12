@@ -165,10 +165,10 @@ const loadTexture = (gl, url) => {
       } else {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       }
-      resolve(texture);
+      resolve({ texture, width: image.width, height: image.height });
     };
     image.onerror = reject;
     image.src = url;
@@ -204,20 +204,29 @@ const applyLUT = async (imageURL, lutURL) => {
   };
 
   const buffers = initBuffers(gl);
-  const imageTexture = await loadTexture(gl, imageURL);
+  const {
+    texture: imageTexture,
+    width,
+    height,
+  } = await loadTexture(gl, imageURL);
 
-  // Fetch and parse the LUT file
+  // Set canvas dimensions to match the image
+  canvas.width = width;
+  canvas.height = height;
+
+  // Set the WebGL viewport to match the canvas dimensions
+  gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+
   const lutResponse = await fetch(lutURL);
   const lutText = await lutResponse.text();
   const lutData = parse(lutText);
 
-  // Create a flattened 2D texture for the LUT
   const lutArray = new Uint8Array(33 * 33 * 33 * 4);
   for (let i = 0; i < lutData.data.length; i++) {
     lutArray[i * 4] = lutData.data[i][0] * 255;
     lutArray[i * 4 + 1] = lutData.data[i][1] * 255;
     lutArray[i * 4 + 2] = lutData.data[i][2] * 255;
-    lutArray[i * 4 + 3] = 255; // Alpha channel
+    lutArray[i * 4 + 3] = 255;
   }
 
   const lutTexture = gl.createTexture();
@@ -235,13 +244,11 @@ const applyLUT = async (imageURL, lutURL) => {
   );
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
-  // Setup and execute WebGL program
   gl.useProgram(programInfo.program);
 
-  // Bind position buffer
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
   gl.vertexAttribPointer(
     programInfo.attribLocations.vertexPosition,
@@ -253,7 +260,6 @@ const applyLUT = async (imageURL, lutURL) => {
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 
-  // Bind texture coordinate buffer
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.texCoord);
   gl.vertexAttribPointer(
     programInfo.attribLocations.textureCoord,
@@ -265,27 +271,22 @@ const applyLUT = async (imageURL, lutURL) => {
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
 
-  // Bind image texture
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, imageTexture);
   gl.uniform1i(programInfo.uniformLocations.u_image, 0);
 
-  // Bind LUT texture
   gl.activeTexture(gl.TEXTURE1);
   gl.bindTexture(gl.TEXTURE_2D, lutTexture);
   gl.uniform1i(programInfo.uniformLocations.u_lut, 1);
 
-  // Draw the scene
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-  // Output the result
   const outputCanvas = document.createElement('canvas');
-  outputCanvas.width = canvas.width;
-  outputCanvas.height = canvas.height;
+  outputCanvas.width = width;
+  outputCanvas.height = height;
   const ctx = outputCanvas.getContext('2d');
-  ctx.drawImage(canvas, 0, 0);
+  ctx.drawImage(canvas, 0, 0, width, height); // Ensure the drawImage uses the correct dimensions
 
-  // Clean up WebGL resources
   gl.deleteTexture(imageTexture);
   gl.deleteTexture(lutTexture);
   gl.deleteProgram(shaderProgram);
