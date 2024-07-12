@@ -1,8 +1,8 @@
 import { useState, useEffect, Suspense } from 'react';
-import applyLUT from '../lib/applyLUT_WebGL';
+import applyLUT, { initWebGL } from '../lib/applyLUT_WebGL';
 import ReactCompareImage from 'react-compare-image';
 
-const LutCard = ({ lut }) => {
+const LutCard = ({ lut, gl }) => {
   console.log(lut);
   const [appliedImage, setAppliedImage] = useState(null);
   const rawURL =
@@ -10,7 +10,7 @@ const LutCard = ({ lut }) => {
   useEffect(() => {
     const processImage = async () => {
       try {
-        const gradedImage = await applyLUT(rawURL, lut.url);
+        const gradedImage = await applyLUT(gl, rawURL, lut.url);
         setAppliedImage(gradedImage);
       } catch (error) {
         console.error('Failed to apply LUT:', error);

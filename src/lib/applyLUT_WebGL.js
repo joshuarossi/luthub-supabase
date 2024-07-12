@@ -53,7 +53,7 @@ const fragmentShaderSource = `
 `;
 
 // Initialize WebGL
-const initWebGL = canvas => {
+export const initWebGL = canvas => {
   const gl = canvas.getContext('webgl');
   if (!gl) {
     console.error('WebGL not supported');
@@ -181,10 +181,8 @@ const isPowerOf2 = value => {
 };
 
 // Apply LUT
-const applyLUT = async (imageURL, lutURL) => {
-  const canvas = document.createElement('canvas');
-  const gl = initWebGL(canvas);
-  if (!gl) return;
+const applyLUT = async (gl, imageURL, lutURL) => {
+  const canvas = gl.canvas;
 
   const shaderProgram = initShaderProgram(
     gl,
