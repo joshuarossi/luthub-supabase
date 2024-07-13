@@ -41,7 +41,8 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
         console.error('No valid session or access token found');
         return;
       }
-
+      console.log(session);
+      formData.append('user_id', session.user.id);
       const response = await fetch('/api/luts', {
         method: 'POST',
         body: formData,
