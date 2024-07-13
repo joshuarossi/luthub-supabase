@@ -17,6 +17,16 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
     'Rec709 Gamma 2.2',
     'Rec2100 HLG',
     'Rec2100 PQ',
+    'Apple Log',
+    'Davinci Wide Gamut Intermediate',
+    'Sony SLog3',
+    'Panasonic VLog',
+    'Arri LogC3',
+    'Arri LogC4',
+    'Nikon NLog',
+    'Canon Log 3',
+    'Fujifilm FLog2',
+    'DJI DLog-M',
   ];
   const sizes = ['17', '33', '65'];
   const types = ['Conversion', 'Look', 'Full'];
