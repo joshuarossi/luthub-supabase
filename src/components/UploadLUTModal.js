@@ -43,6 +43,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       }
       console.log(session);
       formData.append('user_id', session.user.id);
+      formData.append('user_email', session.user.email); // Append the user's email to the form data
       const response = await fetch('/api/luts', {
         method: 'POST',
         body: formData,
@@ -51,7 +52,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
         },
       });
       onClose();
-      window.location.reload();
+      // window.location.reload();
       if (response.ok) {
         const newLut = await response.json();
         onUpload(newLut.lut);
