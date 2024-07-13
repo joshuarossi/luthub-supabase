@@ -7,9 +7,14 @@ import Dropdown from '../components/Dropdown';
 import { useState } from 'react';
 import UploadLUTModal from './UploadLUTModal';
 
-export default function Nav({ onUpload }) {
+export default function Nav() {
   const { user, logout } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onUpload = () => {
+    console.log('uploaded');
+    window.location.reload();
+  };
 
   const signInWithGoogle = async () => {
     try {
