@@ -25,6 +25,7 @@ export async function POST(request) {
   const output = formData.get('output');
   const size = formData.get('size');
   const type = formData.get('type');
+  const uploaded_by = formData.get('uploaded_by');
 
   // Extract the Authorization header
   const authHeader = request.headers.get('Authorization');
@@ -81,7 +82,7 @@ export async function POST(request) {
         output,
         size,
         type,
-        uploaded_by: user.email,
+        uploaded_by,
       },
     ])
     .select(); // Ensure the inserted data is returned
