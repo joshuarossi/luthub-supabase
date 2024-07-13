@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../context/AuthContext';
 
 const UploadLUTModal = ({ onClose, onUpload }) => {
+  const { user } = useAuth();
   const [lutFile, setLutFile] = useState(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -32,7 +33,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       console.error('No valid session or access token found');
       return;
     }
-    const { user } = useAuth();
+
     console.log(`uploaded_by: ${user.email}`);
     if (lutFile && name && description && input && output && size && type) {
       const formData = new FormData();
