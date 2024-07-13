@@ -12,6 +12,15 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
   const [size, setSize] = useState('');
   const [type, setType] = useState('');
 
+  const colorSpaces = [
+    'Rec709/Gamma 2.4',
+    'Rec709 Gamma 2.2',
+    'Rec2100 HLG',
+    'Rec2100 PQ',
+  ];
+  const sizes = ['17', '33', '65'];
+  const types = ['Conversion', 'Look', 'Full'];
+
   const handleLUTUpload = event => {
     setLutFile(event.target.files[0]);
   };
@@ -90,34 +99,54 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
           onChange={e => setDescription(e.target.value)}
           className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
         />
-        <input
-          type='text'
-          placeholder='Input Color Space'
+        <select
           value={input}
           onChange={e => setInput(e.target.value)}
           className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
-        />
-        <input
-          type='text'
-          placeholder='Output Color Space'
+        >
+          <option value=''>Select Input Color Space</option>
+          {colorSpaces.map(space => (
+            <option key={space} value={space}>
+              {space}
+            </option>
+          ))}
+        </select>
+        <select
           value={output}
           onChange={e => setOutput(e.target.value)}
           className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
-        />
-        <input
-          type='text'
-          placeholder='Size'
+        >
+          <option value=''>Select Output Color Space</option>
+          {colorSpaces.map(space => (
+            <option key={space} value={space}>
+              {space}
+            </option>
+          ))}
+        </select>
+        <select
           value={size}
           onChange={e => setSize(e.target.value)}
           className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
-        />
-        <input
-          type='text'
-          placeholder='Type'
+        >
+          <option value=''>Select Size</option>
+          {sizes.map(s => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
           value={type}
           onChange={e => setType(e.target.value)}
           className='mb-4 p-2 border border-gray-300 rounded w-full text-black'
-        />
+        >
+          <option value=''>Select Type</option>
+          {types.map(t => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
         <div className='flex justify-end'>
           <button
             onClick={handleUpload}
