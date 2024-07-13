@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { clearConfigCache } from 'prettier';
 
 const UploadLUTModal = ({ onClose, onUpload }) => {
   const [lutFile, setLutFile] = useState(null);
@@ -15,6 +16,23 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
   };
 
   const handleUpload = async () => {
+    // Get the current user's session to retrieve the access token
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+    console.log(session);
+    if (error) {
+      console.error('Failed to get session:', error.message);
+      return;
+    }
+
+    // Check if the session is valid and has an access token
+    if (!session || !session.access_token) {
+      console.error('No valid session or access token found');
+      return;
+    }
+    console.log(`uploaded_by: ${session.user.email}`);
     if (lutFile && name && description && input && output && size && type) {
       const formData = new FormData();
       formData.append('file', lutFile);
@@ -24,24 +42,8 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       formData.append('output', output);
       formData.append('size', size);
       formData.append('type', type);
-
-      // Get the current user's session to retrieve the access token
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-      console.log(session);
-      if (error) {
-        console.error('Failed to get session:', error.message);
-        return;
-      }
-
-      // Check if the session is valid and has an access token
-      if (!session || !session.access_token) {
-        console.error('No valid session or access token found');
-        return;
-      }
       formData.append('uploaded_by', session.user.email); // Append the user's email to the form data
+
       const response = await fetch('/api/luts', {
         method: 'POST',
         body: formData,
@@ -50,7 +52,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
         },
       });
       onClose();
-      window.location.reload();
+      // window.location.reload();
       if (response.ok) {
         const newLut = await response.json();
         onUpload(newLut.lut);
