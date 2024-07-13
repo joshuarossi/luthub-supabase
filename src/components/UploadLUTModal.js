@@ -13,7 +13,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
   const [type, setType] = useState('');
 
   const colorSpaces = [
-    'Rec709/Gamma 2.4',
+    'Rec709 Gamma 2.4',
     'Rec709 Gamma 2.2',
     'Rec2100 HLG',
     'Rec2100 PQ',
