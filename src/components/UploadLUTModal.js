@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { clearConfigCache } from 'prettier';
+import { useAuth } from '../context/AuthContext';
 
 const UploadLUTModal = ({ onClose, onUpload }) => {
   const [lutFile, setLutFile] = useState(null);
@@ -32,7 +32,8 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       console.error('No valid session or access token found');
       return;
     }
-    console.log(`uploaded_by: ${session.user.email}`);
+    const { user } = useAuth();
+    console.log(`uploaded_by: ${user.email}`);
     if (lutFile && name && description && input && output && size && type) {
       const formData = new FormData();
       formData.append('file', lutFile);
@@ -42,7 +43,7 @@ const UploadLUTModal = ({ onClose, onUpload }) => {
       formData.append('output', output);
       formData.append('size', size);
       formData.append('type', type);
-      formData.append('uploaded_by', session.user.email); // Append the user's email to the form data
+      formData.append('uploaded_by', user.email); // Append the user's email to the form data
 
       const response = await fetch('/api/luts', {
         method: 'POST',
