@@ -5,8 +5,13 @@ import ReactCompareImage from 'react-compare-image';
 const LutCard = ({ lut, gl }) => {
   console.log(lut);
   const [appliedImage, setAppliedImage] = useState(null);
+  // This is the person
+  // const rawURL =
+  //   'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9yYXcucG5nIiwiaWF0IjoxNzIwNDkwODQ3LCJleHAiOjE3NTIwMjY4NDd9.OQyX24IJDSXaBqfterl0Y_XrB2jwOZGSURq3GiCq9HE&t=2024-07-09T02%3A07%3A27.334Z';
+
+  // This is the landscape
   const rawURL =
-    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9yYXcucG5nIiwiaWF0IjoxNzIwNDkwODQ3LCJleHAiOjE3NTIwMjY4NDd9.OQyX24IJDSXaBqfterl0Y_XrB2jwOZGSURq3GiCq9HE&t=2024-07-09T02%3A07%3A27.334Z';
+    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/landscape_raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9sYW5kc2NhcGVfcmF3LnBuZyIsImlhdCI6MTcyMTA4MDY1OCwiZXhwIjoxNzUyNjE2NjU4fQ.cSMnM3ag69vkf9mpSF09exTv5YiUCWtMmq4UdrhAbR8&t=2024-07-15T21%3A57%3A38.569Z';
   useEffect(() => {
     const processImage = async () => {
       try {
