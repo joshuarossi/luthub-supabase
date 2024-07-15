@@ -11,7 +11,7 @@ const LutCard = ({ lut, gl }) => {
 
   // This is the landscape
   const rawURL =
-    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/landscape_raw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9sYW5kc2NhcGVfcmF3LnBuZyIsImlhdCI6MTcyMTA4MDY1OCwiZXhwIjoxNzUyNjE2NjU4fQ.cSMnM3ag69vkf9mpSF09exTv5YiUCWtMmq4UdrhAbR8&t=2024-07-15T21%3A57%3A38.569Z';
+    'https://lzfqrvvpfkrxxdvlrvss.supabase.co/storage/v1/object/sign/test-images/landscape.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0ZXN0LWltYWdlcy9sYW5kc2NhcGUucG5nIiwiaWF0IjoxNzIxMDgxNTE3LCJleHAiOjE3NTI2MTc1MTd9.O6P_CZQea980uZUylizwHvCeRWGqrdjSY06lqNnLNbQ&t=2024-07-15T22%3A11%3A57.947Z';
   useEffect(() => {
     const processImage = async () => {
       try {
